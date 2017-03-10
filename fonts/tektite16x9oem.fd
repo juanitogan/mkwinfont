@@ -13,11 +13,22 @@
 #    You may copy the program and distribute it without charge.  You may
 #    not sell or otherwise charge for VFONT. However, users' groups may 
 #    charge a small fee (not to exceed $10) for media and postage.
+########################################################################
+# Feb 2017 - mj.Jernigan
+#    Reverted some of Simon's changes but added many of my own.
+#    Improved spacing in both x and y.
+#    Cleaned up the accented characters with more-readable but
+#      less-stylized accents.
+#    Stylized the many non-stylized characters.
+#    Adjusted the Greek/Sharp-S set to align with IBM description.
+#    Many smaller tweaks.
+########################################################################
 
 # In order to use this as a font in DOS boxes, the facename is
 # required to be System, Terminal or Courier. Terminal seems most
 # appropriate because that's what it's for; it's not Courier and it's
 # certainly not part of the System!
+
 #facename Terminal
 facename Tektite OEM
 copyright Portions copyright 1991,1993,1998 clySmic Software.
