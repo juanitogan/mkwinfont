@@ -45,12 +45,12 @@ python3 mkwinfont.py -fon -o <outfile.fon> [-facename <name>] <file1.fd> [<file2
 
 To desconstruct a FNT or single-font FON file to FD text file:
 ```
-dewinfont -o <outfile.fb> <filename>
+python3 dewinfont.py -o <outfile.fb> <filename>
 ```
 
 To desconstruct a multi-font FON file to multiple FD text files:
 ```
-dewinfont -p <prefix> <file.fon>
+python3 dewinfont.py -p <prefix> <file.fon>
 ```
 * Files will be named like so: `<prefix>00.fd`
 
