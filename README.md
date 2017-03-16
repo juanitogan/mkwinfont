@@ -64,3 +64,8 @@ python3 dewinfont.py -p <prefix> <file.fon>
 
 [**PSF Tools**](http://www.seasip.info/Unix/PSF/) - UNIX programs that are useful for converting many bitmap types -- particularly, Linux's PSF console type (but not the PCF X11 type?).  It installed fine in [Babun](http://babun.github.io/)/Cygwin for me.
 
+## See Also
+
+This project was spawned by needs of this other one for creating fonts compatible with [PICO-8](http://www.lexaloffle.com/pico-8.php) programming:
+
+* https://github.com/juanitogan/p8-programming-fonts
