@@ -6,7 +6,7 @@ This is an update to Simon Tatham's font utilities found here:
 Some additional information on his work can be found here:
 * http://michelbytes.blogspot.com/2012/08/how-to-make-fon-bitmap-font-files.html
 
-In brief, `mkwinfont` and `dewinfont` are Python scripts for working with Windows bitmap font file types: FNT and FON.  These scripts read from and write to text files (*.fd) where the character bitmaps are defined with text characters such a `.` and `x`, or `0` and `1` (or any combination of those).
+In brief, `mkwinfont` and `dewinfont` are Python scripts for working with Windows **bitmap** font file types: FNT and FON.  These scripts read from and write to text files (*.fd) where the character bitmaps are defined with text characters such a `.` and `x`, or `0` and `1` (or any combination of those).
 
 For example, the letter "A":
 ```
@@ -75,7 +75,13 @@ montage \
 
 [**PSF Tools**](http://www.seasip.info/Unix/PSF/) - A collection of UNIX tools for converting many bitmap font types -- particularly, Linux's PSF console type (but not the PCF X11 type?).  It installed fine in [Babun](http://babun.github.io/)/Cygwin for me.
 
-### Vector font tools
+### Single-line vector font tools
+
+It's been a long time since I've worked with these (some of which can also be contained in FON files), but here's a good reference:
+
+* http://imajeenyus.com/computer/20150110_single_line_fonts
+
+### Outline vector font tools
 
 See [my guide](https://namethattech.wordpress.com/2017/03/22/how-to-make-a-snap-to-grid-in-fontforge/) for creating pixelated TrueType fonts in [FontForge](https://fontforge.github.io/).
 
