@@ -58,6 +58,8 @@ python3 dewinfont.py -p <prefix> <file.fon>
 
 ### Bitmap font tools
 
+[**FontForge**](https://fontforge.github.io/) - This is probably the most current editor.  Weirdly, however, I haven't tested it much for FNT and FON work other than to open some multi-font FON files with it to see if it can handle them.  It can.  The interface, however, is so crazy complicated due to its vector features that it is hard to recommend it just for bitmap work.  Use it if you already know it from vector work.  Note that even though this is a vector-first editor, it only supports outline vectors and not single-line vectors (such as the "plotter" fonts found in some FON files).
+
 [**fony**](http://hukka.ncn.fi/?fony) - For most work, you'll probably want to use this editor.  It is a fairly good editor with only a few UI annoyances.  It has a few issues that forced me to revert to _mkwinfont_ here and there, but those are rare.  I also had some trouble with saving multi-font FON files as FNT (the FNT file coming out identical to the FON file, which is wrong) and reducing multi-font FON files to a single-font FON file (the result not readable by Windows)... but I can't reliably reproduce those problems either so, go figure, maybe it was me.  Considering that FNT files are resource files for programming and not installable in the OS, and that FNT files cannot contain more than one font like FON files can (which this editor favors features for), it would probably make more sense to handle FNT as another type of import/export instead of a load/save.  The feature to export to grid images is broken (which is fairly disappointing to me)... or was never completed (the latest version I found being a "work in progress").  That's what [ImageMagick](https://imagemagick.org/)'s montage tool is for, I suppose.  Hint:
 
 ```shell script
@@ -80,6 +82,10 @@ montage \
 It's been a long time since I've worked with these (some of which can also be contained in FON files), but here's a good reference:
 
 * http://imajeenyus.com/computer/20150110_single_line_fonts
+
+Also, this discussion about the unlikely possibility of supporting some of these formats in FontForge:
+
+* https://github.com/fontforge/fontforge/issues/3841
 
 ### Outline vector font tools
 
