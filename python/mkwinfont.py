@@ -443,88 +443,89 @@ def fon(name, fonts):
 
 	return file
 
-outfile = None
-facename = None
-fonmode = 1
-infiles = []
-a = sys.argv[1:]
-options = 1
-if len(a) == 0:
-	print("usage: mkwinfont [-fnt | -fon] [-o outfile] [-facename name] files")
-	sys.exit(0)
-while len(a) > 0:
-	if a[0] == "--":
-		options = 0
-		a = a[1:]
-	elif options and a[0][0:1] == "-":
-		if a[0] == "-o":
-			try:
-				outfile = a[1]
-				a = a[2:]
-			except IndexError:
-				sys.stderr.write("option -o requires an argument\n")
-				sys.exit(1)
-		elif a[0] == "-facename":
-			try:
-				facename = a[1]
-				a = a[2:]
-			except IndexError:
-				sys.stderr.write("option -facename requires an argument\n")
-				sys.exit(1)
-		elif a[0] == "-fnt":
-			fonmode = 0
+if __name__ == "__main__":
+	outfile = None
+	facename = None
+	fonmode = 1
+	infiles = []
+	a = sys.argv[1:]
+	options = 1
+	if len(a) == 0:
+		print("usage: mkwinfont [-fnt | -fon] [-o outfile] [-facename name] files")
+		sys.exit(0)
+	while len(a) > 0:
+		if a[0] == "--":
+			options = 0
 			a = a[1:]
-		elif a[0] == "-fon":
-			fonmode = 1
-			a = a[1:]
+		elif options and a[0][0:1] == "-":
+			if a[0] == "-o":
+				try:
+					outfile = a[1]
+					a = a[2:]
+				except IndexError:
+					sys.stderr.write("option -o requires an argument\n")
+					sys.exit(1)
+			elif a[0] == "-facename":
+				try:
+					facename = a[1]
+					a = a[2:]
+				except IndexError:
+					sys.stderr.write("option -facename requires an argument\n")
+					sys.exit(1)
+			elif a[0] == "-fnt":
+				fonmode = 0
+				a = a[1:]
+			elif a[0] == "-fon":
+				fonmode = 1
+				a = a[1:]
+			else:
+				sys.stderr.write("ignoring unrecognised option "+a[0]+"\n")
+				a = a[1:]
 		else:
-			sys.stderr.write("ignoring unrecognised option "+a[0]+"\n")
+			infiles = infiles + [a[0]]
 			a = a[1:]
+
+	if len(infiles) < 0:
+		sys.stderr.write("no input files specified\n")
+		sys.exit(1)
+
+	if outfile == None:
+		sys.stderr.write("no output file specified\n")
+		sys.exit(1)
+
+	if fonmode == 0 and len(infiles) > 1:
+		sys.stderr.write("FNT mode can only process one font\n")
+		sys.exit(1)
+
+	fnts = []
+	fds = []
+	for fname in infiles:
+		f = loadfont(fname)
+		if f == None:
+			sys.stderr.write("unable to load font description "+fname+"\n")
+			sys.exit(1)
+		if facename != None:
+			f.facename = facename
+		fds = fds + [f]
+		fnts = fnts + [fnt(f)]
+
+	if fonmode == 0:
+		outfp = open(outfile, "wb")
+		outfp.write(fnts[0])
+		outfp.close()
 	else:
-		infiles = infiles + [a[0]]
-		a = a[1:]
-
-if len(infiles) < 0:
-	sys.stderr.write("no input files specified\n")
-	sys.exit(1)
-
-if outfile == None:
-	sys.stderr.write("no output file specified\n")
-	sys.exit(1)
-
-if fonmode == 0 and len(infiles) > 1:
-	sys.stderr.write("FNT mode can only process one font\n")
-	sys.exit(1)
-
-fnts = []
-fds = []
-for fname in infiles:
-	f = loadfont(fname)
-	if f == None:
-		sys.stderr.write("unable to load font description "+fname+"\n")
-		sys.exit(1)
-	if facename != None:
-		f.facename = facename
-	fds = fds + [f]
-	fnts = fnts + [fnt(f)]
-
-if fonmode == 0:
-	outfp = open(outfile, "wb")
-	outfp.write(fnts[0])
-	outfp.close()
-else:
-	# If all supplied fonts have the same face name, use that.
-	# Otherwise, require that one be input.
-	autoname = fds[0].facename
-	for f in fds[1:]:
-		if autoname != f.facename:
-			autoname = None
-	if facename == None:
-		facename = autoname
-	if facename == None:
-		sys.stderr.write("fonts disagree on face name; "+\
-		"specify one with -facename\n")
-		sys.exit(1)
-	outfp = open(outfile, "wb")
-	outfp.write(fon(facename, fnts))
-	outfp.close()
+		# If all supplied fonts have the same face name, use that.
+		# Otherwise, require that one be input.
+		autoname = fds[0].facename
+		for f in fds[1:]:
+			if autoname != f.facename:
+				autoname = None
+		if facename == None:
+			facename = autoname
+		if facename == None:
+			sys.stderr.write("fonts disagree on face name; "+\
+			"specify one with -facename\n")
+			sys.exit(1)
+		outfp = open(outfile, "wb")
+		outfp.write(fon(facename, fnts))
+		outfp.close()
